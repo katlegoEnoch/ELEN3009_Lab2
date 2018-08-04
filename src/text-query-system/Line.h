@@ -3,7 +3,11 @@
 
 #include "Word.h"
 #include <string>
+#include <vector>
 using namespace std;
+
+//empty class to represent exception
+class LineContainsNoWords {};
 
 class Line
 {
@@ -16,6 +20,8 @@ public:
 	bool contains(const Word& search_word) const;
 
 private:		
+    //shouldn't we be storing Word objects as we construct them in a vector?
+    vector<Word> line_;
 
 };
 
