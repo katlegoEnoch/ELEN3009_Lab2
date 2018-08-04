@@ -37,30 +37,41 @@ TEST_CASE("Case is ignored when comparing Words") {
 	CHECK(Word{LOWERCASE} == Word{UPPERCASE});
 }
 //
-//TEST_CASE("Punctuation is ignored when comparing Words") {
-//	auto word_with_punct = Word{PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION};
-//	auto word_without_punct = Word{"hello"};
-//	CHECK(word_without_punct == word_with_punct);
-//}
+TEST_CASE("Punctuation is ignored when comparing Words") {
+	auto word_with_punct = Word{PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION};
+	auto word_without_punct = Word{"hello"};
+	CHECK(word_without_punct == word_with_punct);
+}
 //
-//TEST_CASE("Word cannot consist solely of punctuation") {
-//	CHECK_THROWS_AS(Word{"!@#$%"}, WordContainsNoLetters);
-//}
+TEST_CASE("Word cannot consist solely of punctuation") {
+	CHECK_THROWS_AS(Word{"!@#$%"}, WordContainsNoLetters);
+}
 //
-//TEST_CASE("Word cannot contain a space") {
-//	CHECK_THROWS_AS(Word{"hello there"}, WordContainsSpace);
-//}
+TEST_CASE("Word cannot contain a space") {
+	CHECK_THROWS_AS(Word{"hello there"}, WordContainsSpace);
+}
+
+/*The next two examples illustrate how to test for alternatives instead of including if statements in cases*/
+
 //
-//TEST_CASE("Word is queryable if greater than or equal to a specific size") {
-//	auto test_string = ""s;
-//	test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
-//	auto test_word = Word{test_string};
-//	CHECK(test_word.isQueryable());
-//}
+TEST_CASE("Word is queryable if greater than or equal to a specific size") {
+	auto test_string = ""s;
+	test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
+	auto test_word = Word{test_string};
+	CHECK(test_word.isQueryable());
+}
 //
-//TEST_CASE("Word is not queryable if less than a specific size") {
-//// Write this test...
-//}
+TEST_CASE("Word is not queryable if less than a specific size") {
+// Write this test...
+    //create a small string
+    auto smallString = ""s;
+    smallString.resize(MIN_SIZE_FOR_QUERY-1,'a');
+    //construct a word from the string
+    auto smallWord = Word{smallString};
+    //ask if the word constructed is queryable, assert that it's not
+    CHECK_FALSE(smallWord.isQueryable());
+    
+}
 
 // ------------- Tests for Line ----------------
 //
