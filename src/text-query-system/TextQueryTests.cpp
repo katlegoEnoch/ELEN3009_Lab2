@@ -33,9 +33,9 @@ TEST_CASE("Non-identical Words are not equal") {
 
 // --------
 
-//TEST_CASE("Case is ignored when comparing Words") {
-//	CHECK(Word{LOWERCASE} == Word{UPPERCASE});
-//}
+TEST_CASE("Case is ignored when comparing Words") {
+	CHECK(Word{LOWERCASE} == Word{UPPERCASE});
+}
 //
 //TEST_CASE("Punctuation is ignored when comparing Words") {
 //	auto word_with_punct = Word{PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION};
