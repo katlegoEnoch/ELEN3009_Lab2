@@ -77,8 +77,8 @@ TEST_CASE("Word is not queryable if less than a specific size") {
 //
 //// Test null case for contains() first - here, an empty line
 TEST_CASE("Word cannot be found in empty Line") {
-   //auto line = Line{""};   
-   //CHECK_FALSE(line.contains(Word{"hello"}));
+   auto line = Line{""};  
+   CHECK_FALSE(line.contains(Word{"hello"}));
 }
 //
 TEST_CASE("Word can be found in a Line with a single Word") {
@@ -121,19 +121,90 @@ TEST_CASE("Word which is not queryable cannot be found") {
 //TEST_CASE("Word cannot be found in empty Paragraph") {
 //}
 //
-//TEST_CASE("Word not present in Paragraph cannot be found") {
-//}
+TEST_CASE("Word not present in Paragraph cannot be found"){
+    //declare bool and vector hold tuple returns
+    bool wordInParagraph;
+    vector<int> lineNumbers;
+    //create paragraph object
+    Paragraph paragraph;
+    //create Line objects from fake lines
+    auto line1 = Line{"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."};
+    auto line2 = Line{"How can you tell if a person is a programmer? They use nested parentheses in normal writing (at least I do (sometimes))."};
+    //add lines to paragraph
+    paragraph.addLine(line1);
+    paragraph.addLine(line2);
+    //ask paragraph if it contains word
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"katlego"});
+    CHECK_FALSE(wordInParagraph);
+}
 //
-//TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
-//}
+TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
+    //create bool and vector to hold function returns
+    bool wordInParagraph;
+    vector<int> lineNumbers;
+    //create parapraph object
+    Paragraph paragraph;
+    //create lines from strings
+    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};	
+    auto line2 = Line{"Walking on water and developing software from a specification are easy if both are frozen."};
+    //add lines to paragraph
+    paragraph.addLine(line1);
+    paragraph.addLine(line2);
+    //ask paragraph if it contains word 'computer'
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"computer"});
+    //assert that word is found in line number 1
+    CHECK(lineNumbers.at(0) == 1);
+    //ask paragraph if it contains word 'specification'
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"specification"});
+    //asset that word if found in line number 2
+    CHECK(lineNumbers.at(0) == 2);
+}
 //
-//TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
-//}
+TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
+    //create bool and vector to hold function returns
+    bool wordInParagraph;
+    vector<int> lineNumbers;
+    //create parapraph object
+    Paragraph paragraph;
+    //create lines from strings
+    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};	
+    auto line2 = Line{"Walking on water and developing software on a computer from a specification are easy if both are frozen."};
+    auto line3 = Line{"It shouldn't take a week to complete this exercise."};
+    auto line4 = Line{"A computer is only as intelligent as the person using it."};
+    //add lines to paragraph
+    paragraph.addLine(line1);
+    paragraph.addLine(line2);
+    paragraph.addLine(line3);
+    paragraph.addLine(line4);
+    
+    //ask paragraph if it contains word 'computer'
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"computer"});
+    //assert that word is found in line 1, 2 and 4
+    CHECK(lineNumbers.at(0) == 1);
+    CHECK(lineNumbers.at(1) == 2);
+    CHECK(lineNumbers.at(2) == 4);
+}
 //
-//TEST_CASE("Line numbers returned account for an empty Line") {
-//// If the first line of the paragraph is empty, and the word being searched for
-//// is on the second line, the vector returned should be: [2]
-//}
+TEST_CASE("Line numbers returned account for an empty Line") {
+    //create bool and vector to hold function returns
+    bool wordInParagraph;
+    vector<int> lineNumbers;
+    //create parapraph object
+    Paragraph paragraph;
+    //create lines from strings
+    auto emptyline = Line{""};
+    auto line1 = Line{"A computer is only as intelligent as the person using it."};
+    //add lines to paragraph
+    paragraph.addLine(emptyline);
+    paragraph.addLine(line1);
+    // If the first line of the paragraph is empty, and the word being searched for
+    // is on the second line, the vector returned should be: [2]
+    //ask paragraph if it contains word 'computer'
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"computer"});
+    //assert that word is found in line 2 and not 1
+    CHECK(lineNumbers.at(0) == 2);
+    
+}
 //
 //// Integration test - both Paragraph and File Reader are tested together
 //TEST_CASE("File can be read into Paragraph and successfully searched") {

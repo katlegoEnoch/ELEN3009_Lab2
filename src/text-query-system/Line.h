@@ -7,7 +7,7 @@
 using namespace std;
 
 //empty class to represent exception
-class LineContainsNoWords {};
+//class LineContainsNoWords {};
 
 class Line
 {

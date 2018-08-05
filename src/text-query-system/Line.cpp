@@ -14,20 +14,26 @@ Line::Line(const string& line)
     //make a copy of the string
     auto temp = line;
     
-    //we'll keep deleting words on the string
-    do{
-        //search for first occurence of ' '
-        loc = temp.find(' ');
-        //assign all characters to left of loc to word
-        wordString.assign(temp,0,loc);
-        //construct word object from word string and..
-        //push word into line container
-        line_.push_back(Word{wordString});
-        //erase all characters up to ' '
-        temp.erase(0,loc+1);
-    }while(loc != -1);
+    //if(line.empty()) throw LineContainsNoWords{};
     
-    //if(line_.empty()) throw LineContainsNoWords{};
+    //we'll keep deleting words on the string
+    //only process line with words
+    if(!line.empty()){
+        do{
+            //search for first occurence of ' '
+            loc = temp.find(' ');
+            //assign all characters to left of loc to word
+            wordString.assign(temp,0,loc);
+            //construct word object from word string and..
+            //push word into line container
+            line_.push_back(Word{wordString});
+            //erase all characters up to ' '
+            temp.erase(0,loc+1);
+        }while(loc != -1);
+    }//end if
+    else//if line is empty push
+        line_.clear();
+        
 }
 
 bool Line::contains(const Word& search_word) const
