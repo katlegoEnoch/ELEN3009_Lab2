@@ -28,10 +28,11 @@ int main()
     auto paragraph = Paragraph{};
     filereader.readFileInto(paragraph);
     
+    //prompt user for further input
+    cout << "\nPlease enter a word to search for or '.' to quit: ";
+    cin  >> searchWord;
+        
     do{
-        //prompt user for further input
-        cout << "\nPlease enter a word to search for or '.' to quit: ";
-        cin  >> searchWord;
         //create word from string, query paragraph for word
         //Word will throw exception after . 'punct' is deleted
         try{
@@ -52,7 +53,13 @@ int main()
         }//end if
         else
             cout << "\nWord not found" << endl;
+        
+        //prompt user for further input
+        cout << "\nPlease enter a word to search for or '.' to quit: ";
+        cin  >> searchWord;
+        
     }while(searchWord != ".");
+    
     
     
     return 0;

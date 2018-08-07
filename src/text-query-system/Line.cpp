@@ -26,7 +26,13 @@ Line::Line(const string& line)
             wordString.assign(temp,0,loc);
             //construct word object from word string and..
             //push word into line container
-            line_.push_back(Word{wordString});
+            try{
+                line_.push_back(Word{wordString});
+            }catch(WordContainsNoLetters){
+                //do nothing, just catch to prevent code from crashing
+            }
+            
+            
             //erase all characters up to ' '
             temp.erase(0,loc+1);
         }while(loc != -1);
