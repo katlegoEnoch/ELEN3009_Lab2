@@ -118,8 +118,18 @@ TEST_CASE("Word which is not queryable cannot be found") {
 
 // ------------- Tests for Paragraph ----------------
 
-//TEST_CASE("Word cannot be found in empty Paragraph") {
-//}
+TEST_CASE("Word cannot be found in empty Paragraph") {
+    //create an empty paragraph
+    Paragraph paragraph;
+    //create variables to store function returns
+    bool wordInParagraph;
+    vector<int> lineNumbers;
+    //no lines passed into paragaph
+    //query paragraph for random word
+    std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"Katlego"});
+    //assert that word is not found
+    CHECK_FALSE(wordInParagraph);
+}
 //
 TEST_CASE("Word not present in Paragraph cannot be found"){
     //declare bool and vector hold tuple returns
@@ -207,15 +217,15 @@ TEST_CASE("Line numbers returned account for an empty Line") {
 }
 //
 //// Integration test - both Paragraph and File Reader are tested together
-//TEST_CASE("File can be read into Paragraph and successfully searched") {
+TEST_CASE("File can be read into Paragraph and successfully searched") {
 //	// make sure that alice.txt is in the right location for this to work!
 //	// it must be in the same directory as the executable
-//	auto filereader = FileReader{"alice.txt"};
-//	auto paragraph = Paragraph{};
-//	filereader.readFileInto(paragraph);
+	auto filereader = FileReader{"alice.txt"};
+	auto paragraph = Paragraph{};
+	filereader.readFileInto(paragraph);
 //
-//	auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
+	auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
 //
-//	CHECK(found);
-//	CHECK(vector<int>{1,4,6} == line_numbers);
-//}
+	CHECK(found);
+	CHECK(vector<int>{1,4,6} == line_numbers);
+}

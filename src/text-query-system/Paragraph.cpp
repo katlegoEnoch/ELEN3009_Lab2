@@ -17,16 +17,20 @@ tuple<bool, vector<int>> Paragraph::contains(const Word& search_word) const
     //word in paragraph flag
     auto wordInParagraph = false;
     
-    //for all the lines in paragraph
-    for(size_t line = 0; line < paragraph_.size();line++){
-        //ask line if it contains word
-        if(paragraph_.at(line).contains(search_word)){
-            //push line number into lineNumber vector
-            lineNumbers.push_back(line+1);
-            //set flag true;
-            wordInParagraph = true;
-        }//end if
-    }//end loop
-    
+    //if paragraph has lines added to it...
+    if(!paragraph_.empty()){
+        //for all the lines in paragraph
+        for(size_t line = 0; line < paragraph_.size();line++){
+            //ask line if it contains word
+            if(paragraph_.at(line).contains(search_word)){
+                //push line number into lineNumber vector
+                lineNumbers.push_back(line+1);
+                //set flag true;
+                wordInParagraph = true;
+            }//end if
+        }//end loop
+   }//end if
+   //else do nothing
+
 	return {wordInParagraph, lineNumbers};
 }
