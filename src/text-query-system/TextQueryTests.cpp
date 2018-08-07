@@ -19,12 +19,12 @@ const auto MIN_SIZE_FOR_QUERY = 3;
 // Also see further examples at:
 // https://github.com/onqtam/doctest/blob/master/examples/all_features/assertion_macros.cpp
 
-TEST_CASE("Empty Word cannot be created") {	 
+TEST_CASE("Empty Word cannot be created") {
     CHECK_THROWS_AS(Word{""}, WordContainsNoLetters);
 }
 
 TEST_CASE("Identical Words are equal") {
-    CHECK(Word{"that"} == Word{"that"});    
+    CHECK(Word{"that"} == Word{"that"});
 }
 
 TEST_CASE("Non-identical Words are not equal") {
@@ -70,14 +70,14 @@ TEST_CASE("Word is not queryable if less than a specific size") {
     auto smallWord = Word{smallString};
     //ask if the word constructed is queryable, assert that it's not
     CHECK_FALSE(smallWord.isQueryable());
-    
+
 }
 
 // ------------- Tests for Line ----------------
 //
 //// Test null case for contains() first - here, an empty line
 TEST_CASE("Word cannot be found in empty Line") {
-   auto line = Line{""};  
+   auto line = Line{""};
    CHECK_FALSE(line.contains(Word{"hello"}));
 }
 //
@@ -95,24 +95,24 @@ TEST_CASE("First and last Words in a Line can be found") {
 //
 //// Test not only success scenarios but also failure scenarios.
 TEST_CASE("Word not in a Line cannot be found") {
-	auto line = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};	
+	auto line = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};
 	CHECK_FALSE(line.contains(Word{"cellphone"}));
 }
 //
 TEST_CASE("Words are found irrespective of case") {
-	auto line = Line{"You can stand on the shoulders of giants or a BIG enough pile of dwarfs, works either way."};	
-	CHECK(line.contains(Word{"big"}));	
+	auto line = Line{"You can stand on the shoulders of giants or a BIG enough pile of dwarfs, works either way."};
+	CHECK(line.contains(Word{"big"}));
 	CHECK(line.contains(Word{"STAND"}));
 }
 //
 TEST_CASE("Words are found irrespective of surrounding punctuation") {
 	auto line = Line{"How can you tell if a person is a programmer? They use nested parentheses in normal writing (at least I do (sometimes))."};
-	CHECK(line.contains(Word{"programmer"}));	
+	CHECK(line.contains(Word{"programmer"}));
 	CHECK(line.contains(Word{"sometimes"}));
 }
 //
 TEST_CASE("Word which is not queryable cannot be found") {
-   auto line = Line{"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."};   
+   auto line = Line{"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."};
    CHECK_FALSE(line.contains(Word{"a"}));
 }
 
@@ -155,7 +155,7 @@ TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
     //create parapraph object
     Paragraph paragraph;
     //create lines from strings
-    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};	
+    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};
     auto line2 = Line{"Walking on water and developing software from a specification are easy if both are frozen."};
     //add lines to paragraph
     paragraph.addLine(line1);
@@ -177,7 +177,7 @@ TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is 
     //create parapraph object
     Paragraph paragraph;
     //create lines from strings
-    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};	
+    auto line1 = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};
     auto line2 = Line{"Walking on water and developing software on a computer from a specification are easy if both are frozen."};
     auto line3 = Line{"It shouldn't take a week to complete this exercise."};
     auto line4 = Line{"A computer is only as intelligent as the person using it."};
@@ -186,7 +186,7 @@ TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is 
     paragraph.addLine(line2);
     paragraph.addLine(line3);
     paragraph.addLine(line4);
-    
+
     //ask paragraph if it contains word 'computer'
     std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"computer"});
     //assert that word is found in line 1, 2 and 4
@@ -213,7 +213,7 @@ TEST_CASE("Line numbers returned account for an empty Line") {
     std::tie (wordInParagraph,lineNumbers) = paragraph.contains(Word{"computer"});
     //assert that word is found in line 2 and not 1
     CHECK(lineNumbers.at(0) == 2);
-    
+
 }
 //
 //// Integration test - both Paragraph and File Reader are tested together

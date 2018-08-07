@@ -11,18 +11,18 @@ class Paragraph
 {
 public:
 	// DO NOT MODIFY THE PUBLIC INTERFACE OF THIS CLASS
-
+  //there's no paragraph constructor
 	// no need for constructor
 	void addLine(const Line& line);
 	// the bool return type is true if the word is found in the paragraph; false otherwise
 	// the vector return type contains the line numbers at which the search word is found
 	// if the search word is not found an empty vector is returned
-	tuple<bool, vector<int>> contains(const Word& search_word) const;	
+	tuple<bool, vector<int>> contains(const Word& search_word) const;
 
-private:	
-    //if there's no line container what are you adding lines to?
-    vector<Line> paragraph_;
+private:
+	//if there's no data container where are we adding the line to?
+	vector<Line> paragraph_;
+
 };
 
 #endif
-
